@@ -2,7 +2,7 @@ import CubicSpline from "cubic-spline";
 import {E, G, AI} from "../functions.js"
 
 export default async function loadAndPlotPopulation() {
-    const response = await fetch('population.csv');
+    const response = await fetch('/population.csv');
     const csvText = await response.text();
 
     const lines = csvText.trim().split('\n').slice(1);

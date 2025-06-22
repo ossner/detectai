@@ -57,7 +57,7 @@ export default async function loadAndPlotWords() {
                     },
                     ticks: {
                         callback: function (value) {
-                            return value.toLocaleString('en-US', {useGrouping: false}); // Remove grouping (e.g., "1,500" -> "1500")
+                            return value.toLocaleString('en-US', {useGrouping: false});
                         }
                     },
                     min: 1564
@@ -66,7 +66,12 @@ export default async function loadAndPlotWords() {
                     title: {
                         display: true,
                         text: '# Words'
-                    }
+                    },
+                    ticks: {
+                        callback: function (value) {
+                            return value.toExponential();
+                        }
+                    },
                 }
             }
         }

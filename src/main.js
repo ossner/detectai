@@ -32,7 +32,7 @@ var yyyy = today.getFullYear();
 today = dd + '/' + mm + '/' + yyyy;
 
 var tomorrow = new Date();
-tomorrow.setDate(tomorrow.getDate() + 1); // Add 1 day
+tomorrow.setDate(tomorrow.getDate() + 1);
 var dd_tom = String(tomorrow.getDate()).padStart(2, '0');
 var mm_tom = String(tomorrow.getMonth() + 1).padStart(2, '0');
 var yyyy_tom = tomorrow.getFullYear();
@@ -106,7 +106,7 @@ document.querySelector("#article").innerHTML = `
     <p><a href="https://www.worldometers.info/world-population/world-population-projections/">This website</a> gives us some projections for population growth up to 2100.
     And <a href="https://ourworldindata.org/grapher/population?time=1500..latest">this website</a> gives us data for the 1500s until today.
     Using cubic spline interpolation, we can get a reasonable estimate for the human population function.</p>
-<canvas id="populationChart" width="800" height="300"></canvas>
+<canvas id="populationChart"></canvas>
     <h3>2. Fraction of Literate English Speakers $E(t)$</h3>
     <p>This one is a little bit trickier and we can not fully rely on past data.
 The underlying function that seems to make the most sense is a logistic growth function:</p>
@@ -127,7 +127,7 @@ However we will take up the data point of 1950 with 0.09 with an additional 10% 
 <p>Fidgeting with the parameters to roughly fit our data we get the following:
 $$E_{\\text{max}} = 0.33, \\quad k_E = 0.014, \\quad t_E = 2016$$
 </p>
-<canvas id="speakersChart" width="800" height="300"></canvas>
+<canvas id="speakersChart"></canvas>
     <h3>3. Words per Person $G(t)$</h3>
     <p>If you thought the last section contained only glorified guesswork, you ain’t seen nothing yet. 
     How do we quantify the number of words the average human writes per day? <a href="https://www.youtube.com/watch?v=m8niIHChc1Y">What even is a word?</a></p>
@@ -168,7 +168,7 @@ $$G_{\\text{max}} = 4000, \\quad k_G = 0.03, \\quad t_G = 2000$$
 $$r_{\\text{AI}} = 0.008, \\quad t_{\\text{AI}} = 2024$$
 </p>
 </div>
-<canvas id="wordsChart" width="800" height="300"></canvas>
+<canvas id="wordsChart"></canvas>
 <p>We can see that the logistic growth function might not be the perfect fit for this model, not catching the rapid rise of
 social media, and other distinct "spikes" in technology that enable connectivity, etc. But it will probably more or less average out and we are not aiming for perfection anyway.</p>
     <h2>Part II: AI-Generated Words $AI(t)$</h2>
@@ -210,11 +210,11 @@ Where:
 $$t_T = 2028, \\quad r_T = 0.01, \\quad T_{\\text{floor}} = 0.60$$
 </p>
 </div>
-<canvas id="AIWords" width="800" height="300"></canvas>
+<canvas id="AIWords"></canvas>
 Now there are of course a million caveats, assumptions, and so much more complexity in this estimation than we could ever cover,
 but I believe the general idea is more or less sound. 
 <h2>Part III: Putting it in Perspective</h2>
-<canvas id="combined" width="800" height="300"></canvas>
+<canvas id="combined"></canvas>
 <p>While we will have to wait and see what the future holds, even the rather optimistic estimation of two trillion AI-generated words in 2030 pales in comparison 
 to what our models say humans will output.</p>
 <p>This brings me to the point of this write-up: When we wade through a swamp of AI news articles and TikTok slop,
@@ -236,13 +236,11 @@ function validateInput() {
     let error = "";
     let isError = false;
 
-    // Check word count
     if (wordCount < 40 && text.length > 0) {
         error = "Minimum 40 words required";
         isError = true;
     }
 
-    // Check language (only if we have enough words)
     if (!isError && wordCount >= 40) {
         const detectedLanguage = lngDetector.detect(text, 1);
         if (detectedLanguage.length === 0 || detectedLanguage[0][0] !== "english") {
@@ -259,7 +257,6 @@ function validateInput() {
         enableButton();
     }
 
-    // Disable button if input is empty
     if (text.length === 0) {
         disableButton();
     }
@@ -279,26 +276,23 @@ function hideError() {
 
 function disableButton() {
     checkButton.disabled = true;
-    checkButton.style.opacity = "0.5"; // Optional: Visual indicator for disabled button
+    checkButton.style.opacity = "0.5";
 }
 
 function enableButton() {
     checkButton.disabled = false;
-    checkButton.style.opacity = "1"; // Optional: Visual indicator for enabled button
+    checkButton.style.opacity = "1";
 }
 
 checkButton.addEventListener("click", function () {
     checkButton.textContent = "Calculating...";
     checkButton.disabled = true;
-    // Use a small delay to allow UI to update
     setTimeout(() => {
         try {
-            // Calculate probability
             const P = P_AI(dateToYearFraction(today));
             const baseRatePercent = (P * 100).toFixed(2);
             const P_tmrw = P_AI(dateToYearFraction(tomorrow));
             const tmrwRatePercent = (P_tmrw * 100).toFixed(2);
-            // Update result display
             document.getElementById("base-rate").textContent = `${baseRatePercent}%`;
             document.getElementById("tomorrow-rate").textContent = `${tmrwRatePercent}%`;
             document.getElementById("result-container").style.display = "block";
@@ -306,7 +300,6 @@ checkButton.addEventListener("click", function () {
             console.error("Error calculating AI probability:", error);
             showError("An error occurred during calculation. Please try again.");
         } finally {
-            // Reset button
             checkButton.textContent = "Check for AI";
             checkButton.disabled = false;
         }

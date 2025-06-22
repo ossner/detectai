@@ -9,7 +9,6 @@ export default async function loadAndPlotAllWords() {
         E_values.push(AI(year));
     }
 
-// Create chart
     const ctx = document.getElementById('AIWords').getContext('2d');
     new Chart(ctx, {
         type: 'scatter',
@@ -43,7 +42,7 @@ export default async function loadAndPlotAllWords() {
                     },
                     ticks: {
                         callback: function(value) {
-                            return value.toLocaleString('en-US', {useGrouping: false}); // Remove grouping (e.g., "1,500" -> "1500")
+                            return value.toLocaleString('en-US', {useGrouping: false});
                         }
                     },
                 },
@@ -51,7 +50,12 @@ export default async function loadAndPlotAllWords() {
                     title: {
                         display: true,
                         text: '# Words'
-                    }
+                    },
+                    ticks: {
+                        callback: function (value) {
+                            return value.toExponential();
+                        }
+                    },
                 }
             }
         }

@@ -2,7 +2,6 @@
     font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
     font-weight: 400;
-    font-size: 18px;
 
     color-scheme: light dark;
     color: rgba(255, 255, 255, 0.87);
@@ -56,15 +55,6 @@ table {
     display: block;
 }
 
-td, th {
-    border: 1px solid #ccc;
-    text-align: left;
-    padding: 8px;
-}
-
-tr:nth-child(even) {
-}
-
 .disclaimer-content {
     padding: 15px;
     border: 1px solid #ccc;
@@ -88,7 +78,7 @@ tr:nth-child(even) {
 
 .tooltip .tooltiptext {
     visibility: hidden;
-    width: 420px;
+    width: 320px;
     background-color: #353535;
     color: #ccc;
     text-align: left;
@@ -96,9 +86,9 @@ tr:nth-child(even) {
     border-radius: 6px;
     position: absolute;
     z-index: 1;
-    bottom: 125%; /* Position above */
+    bottom: 125%;
     left: 50%;
-    margin-left: -110px; /* Center */
+    margin-left: -180px;
     opacity: 0;
     transition: opacity 0.3s;
 }
@@ -117,7 +107,7 @@ body {
     flex-direction: column;
     place-items: center;
     margin: 0;
-    padding: 0 1rem; /* Add padding for mobile spacing */
+    padding: 0 1rem;
     box-sizing: border-box;
 }
 

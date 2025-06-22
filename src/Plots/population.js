@@ -31,13 +31,18 @@ export default async function loadAndPlotPopulation() {
                     title: {display: true, text: 'Year'},
                     ticks: {
                         callback: function (value) {
-                            return value.toLocaleString('en-US', {useGrouping: false}); // Remove grouping (e.g., "1,500" -> "1500")
+                            return value.toLocaleString('en-US', {useGrouping: false});
                         }
                     },
                     min: 1564
                 },
                 y: {
-                    title: {display: true, text: 'Population'}
+                    title: {display: true, text: 'Population'},
+                    ticks: {
+                        callback: function (value) {
+                            return value.toExponential();
+                        }
+                    },
                 }
             }
         }
@@ -83,13 +88,18 @@ export default async function loadAndPlotPopulation() {
                     title: {display: true, text: 'Year'},
                     ticks: {
                         callback: function (value) {
-                            return value.toLocaleString('en-US', {useGrouping: false}); // Remove grouping (e.g., "1,500" -> "1500")
+                            return value.toLocaleString('en-US', {useGrouping: false});
                         }
                     },
                     min: 1564
                 },
                 y: {
-                    title: {display: true, text: 'Population'}
+                    title: {display: true, text: 'Population'},
+                    ticks: {
+                        callback: function (value) {
+                            return value.toExponential();
+                        }
+                    },
                 }
             }
         }

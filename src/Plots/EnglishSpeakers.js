@@ -8,7 +8,6 @@ export default async function loadAndPlotEnglishSpeakers() {
         E_values.push(E(year));
     }
 
-// Original data points
     const english_speakers_data_x = [1950, 2019, 2020, 2021, 2022, 2023, 2025];
     const english_speakers_data_y = [0.09987594521155573, 0.14466233779069992, 0.16102444506610503, 0.1697163580053262, 0.18076628911385684, 0.18043102332483213, 0.18562582898469498];
 
@@ -17,7 +16,6 @@ export default async function loadAndPlotEnglishSpeakers() {
         y: english_speakers_data_y[i]
     }));
 
-// Create chart
     const ctx = document.getElementById('speakersChart').getContext('2d');
     new Chart(ctx, {
         type: 'scatter',
@@ -58,7 +56,7 @@ export default async function loadAndPlotEnglishSpeakers() {
                     },
                     ticks: {
                         callback: function(value) {
-                            return value.toLocaleString('en-US', {useGrouping: false}); // Remove grouping (e.g., "1,500" -> "1500")
+                            return value.toLocaleString('en-US', {useGrouping: false});
                         }
                     },
                     min: 1564

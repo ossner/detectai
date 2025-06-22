@@ -4,7 +4,7 @@ export default async function loadAndPlotAllWords() {
 
     const totalYears = [];
     const E_values = [];
-    for (let year = 2000; year <= 2100; year++) {
+    for (let year = 2020; year <= 2100; year++) {
         totalYears.push(year);
         E_values.push(AI(year));
     }
@@ -18,7 +18,7 @@ export default async function loadAndPlotAllWords() {
                 {
                     label: 'AllText(t) - Model',
                     data: totalYears.map((year, i) => ({x: year, y: E_values[i]})),
-                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderColor: 'rgb(83,91,242)',
                     borderWidth: 2,
                     fill: false,
                     showLine: true,
@@ -40,7 +40,12 @@ export default async function loadAndPlotAllWords() {
                     title: {
                         display: true,
                         text: 'Year'
-                    }
+                    },
+                    ticks: {
+                        callback: function(value) {
+                            return value.toLocaleString('en-US', {useGrouping: false}); // Remove grouping (e.g., "1,500" -> "1500")
+                        }
+                    },
                 },
                 y: {
                     title: {

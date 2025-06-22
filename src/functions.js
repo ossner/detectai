@@ -9,8 +9,8 @@ export function E(t, E_max = 0.33, k_E = 0.014, t_E = 2016) {
     return E_max / (1 + Math.exp(-k_E * (t - t_E))) + 0.005;
 }
 
-export function G(t, G_max = 1600, k_G = 0.06, t_G = 1985, ai_start_year = 2023, ai_dampening_rate = 0.005) {
-    const sigmoid = G_max / (1 + Math.exp(-k_G * (t - t_G))) + 15;
+export function G(t, G_max = 3000, k_G = 0.03, t_G = 2000, ai_start_year = 2024, ai_dampening_rate = 0.008) {
+    const sigmoid = G_max / (1 + Math.exp(-k_G * (t - t_G))) + 25;
     const years_since_ai = Math.max(0, t - ai_start_year);
     const dampening_factor = Math.pow(1 - ai_dampening_rate, years_since_ai);
     return sigmoid * dampening_factor;

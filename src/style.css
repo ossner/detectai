@@ -20,7 +20,7 @@ a {
 }
 .disclaimer-container {
   margin: 20px 0;
-  font-family: Arial, sans-serif;
+  font-family: inherit;
 }
 
 .disclaimer-toggle {
@@ -44,6 +44,20 @@ a {
 .disclaimer-toggle.active:after {
   content: '-';
 }
+table {
+  font-family: inherit;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #ccc;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+}
 
 .disclaimer-content {
   padding: 15px;
@@ -57,17 +71,45 @@ a {
   margin: 0;
   line-height: 1.5;
 }
+.tooltip {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  color: #646cff;
+  font-weight: bold;
+}
 
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 220px;
+  background-color: #353535;
+  color: #ccc;
+  text-align: left;
+  padding: 8px;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%; /* Position above */
+  left: 50%;
+  margin-left: -110px; /* Center */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
 a:hover {
     color: #535bf2;
 }
 
 body {
-    margin: 0;
     display: flex;
     place-items: center;
     min-width: 320px;
     min-height: 100vh;
+    margin: 0 0 500px;
 }
 
 h1 {
@@ -167,6 +209,7 @@ button:focus-visible {
     }
 
     button {
-        background-color: #f9f9f9;
+    color: #f9f9f9;
+    background-color: #646cff;
     }
 }

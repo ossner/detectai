@@ -1,5 +1,5 @@
 import CubicSpline from "cubic-spline";
-import {E, G, AI} from "../functions.js"
+import {AI, E, G} from "../functions.js"
 
 export default async function loadAndPlotPopulation() {
     const response = await fetch('/population.csv');
@@ -18,7 +18,7 @@ export default async function loadAndPlotPopulation() {
     const P = new CubicSpline(years, populations);
     const totalYears = [];
     const interpolatedPopulations = [];
-    for (let year = 1500; year <= 2100; year++) {
+    for (let year = 1564.311475409836; year <= 2100; year++) {
         totalYears.push(year);
         interpolatedPopulations.push(P.at(year));
     }
@@ -42,7 +42,13 @@ export default async function loadAndPlotPopulation() {
             scales: {
                 x: {
                     type: 'linear',
-                    title: {display: true, text: 'Year'}
+                    title: {display: true, text: 'Year'},
+                    ticks: {
+                        callback: function (value) {
+                            return value.toLocaleString('en-US', {useGrouping: false}); // Remove grouping (e.g., "1,500" -> "1500")
+                        }
+                    },
+                    min: 1564
                 },
                 y: {
                     title: {display: true, text: 'Population'}
@@ -54,7 +60,7 @@ export default async function loadAndPlotPopulation() {
     const human_values = [];
     const AI_values = [];
     const recent_years = []
-    for (let year = 2000; year <= 2100; year++) {
+    for (let year = 1564.311475409836; year <= 2100; year++) {
         recent_years.push(year);
         human_values.push(P.at(year) * E(year) * G(year));
         AI_values.push(AI(year));
@@ -66,29 +72,35 @@ export default async function loadAndPlotPopulation() {
         data: {
             labels: recent_years,
             datasets: [{
-                    label: 'Human Generated Words',
-                    data: recent_years.map((year, i) => ({x: year, y: human_values[i]})),
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 2,
-                    fill: false,
-                    showLine: true,
-                    pointRadius: 0
-                },{
-                    label: 'AI-Generated Words',
-                    data: recent_years.map((year, i) => ({x: year, y: AI_values[i]})),
-                    borderColor: 'rgba(192, 192, 192, 1)',
-                    borderWidth: 2,
-                    fill: false,
-                    showLine: true,
-                    pointRadius: 0
-                }]
+                label: 'Human Generated Words',
+                data: recent_years.map((year, i) => ({x: year, y: human_values[i]})),
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 2,
+                fill: false,
+                showLine: true,
+                pointRadius: 0
+            }, {
+                label: 'AI-Generated Words',
+                data: recent_years.map((year, i) => ({x: year, y: AI_values[i]})),
+                borderColor: 'rgb(83,91,242)',
+                borderWidth: 2,
+                fill: false,
+                showLine: true,
+                pointRadius: 0
+            }]
         },
         options: {
             responsive: true,
             scales: {
                 x: {
                     type: 'linear',
-                    title: {display: true, text: 'Year'}
+                    title: {display: true, text: 'Year'},
+                    ticks: {
+                        callback: function (value) {
+                            return value.toLocaleString('en-US', {useGrouping: false}); // Remove grouping (e.g., "1,500" -> "1500")
+                        }
+                    },
+                    min: 1564
                 },
                 y: {
                     title: {display: true, text: 'Population'}

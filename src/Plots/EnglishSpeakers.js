@@ -3,7 +3,7 @@ import {E} from '../functions.js'
 export default async function loadAndPlotEnglishSpeakers() {
     const totalYears = [];
     const E_values = [];
-    for (let year = 1500; year <= 2100; year++) {
+    for (let year = 1564.311475409836; year <= 2100; year++) {
         totalYears.push(year);
         E_values.push(E(year));
     }
@@ -55,12 +55,19 @@ export default async function loadAndPlotEnglishSpeakers() {
                     title: {
                         display: true,
                         text: 'Year'
-                    }
+                    },
+                    ticks: {
+                        callback: function(value) {
+                            return value.toLocaleString('en-US', {useGrouping: false}); // Remove grouping (e.g., "1,500" -> "1500")
+                        }
+                    },
+                    min: 1564
+
                 },
                 y: {
                     title: {
                         display: true,
-                        text: 'Number of Speakers'
+                        text: 'Fraction of Speakers'
                     }
                 }
             }

@@ -4,13 +4,13 @@ export default async function loadAndPlotWords() {
 
     const totalYears = [];
     const G_values = [];
-    for (let year = 1500; year <= 2100; year++) {
+    for (let year = 1564.311475409836; year <= 2100; year++) {
         totalYears.push(year);
         G_values.push(G(year));
     }
 
-    const human_words_data_x = [1700, 1840, 1900, 1999, 2005, 2025];
-    const human_words_data_y = [15, 25, 40, 1100, 1400, 1500];
+    const human_words_data_x = [1700, 1900, 2000, 2025];
+    const human_words_data_y = [25, 200, 1000, 2000];
 
     const dataPoints = human_words_data_x.map((year, i) => ({
         x: year,
@@ -54,7 +54,13 @@ export default async function loadAndPlotWords() {
                     title: {
                         display: true,
                         text: 'Year'
-                    }
+                    },
+                    ticks: {
+                        callback: function (value) {
+                            return value.toLocaleString('en-US', {useGrouping: false}); // Remove grouping (e.g., "1,500" -> "1500")
+                        }
+                    },
+                    min: 1564
                 },
                 y: {
                     title: {

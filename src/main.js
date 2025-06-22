@@ -1,13 +1,10 @@
 import "./style.css";
 import LanguageDetect from "languagedetect";
-import './Plots/population.js'
-import './Plots/WordsADay.js'
 import loadAndPlotPopulation from "./Plots/population.js";
 import loadAndPlotWords from "./Plots/WordsADay.js";
 import loadAndPlotEnglishSpeakers from "./Plots/EnglishSpeakers.js";
 import loadAndPlotAllWords from "./Plots/AIWords.js"
-import {P_AI} from "./functions.js";
-import {dateToYearFraction} from "./functions.js";
+import {dateToYearFraction, P_AI} from "./functions.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     loadAndPlotWords();
@@ -223,6 +220,7 @@ to what our models say humans will output.</p>
 <p>This brings me to the point of this write-up: When we wade through a swamp of AI news articles and TikTok slop,
 remember that the way out is for you to write and create. Use this technology as the enabling tool that it is supposed to be: learn with it, question it, and
 use it to your advantage, don't use it to write everything you could also write. These are incredibly sophisticated tools that can enable us to do remarkable things.</p>
+<div class="article_footer" id="article_footer"></div>
 `;
 
 const lngDetector = new LanguageDetect();
@@ -289,9 +287,7 @@ function enableButton() {
     checkButton.style.opacity = "1"; // Optional: Visual indicator for enabled button
 }
 
-console.log(P_AI(dateToYearFraction(today)));
-
-checkButton.addEventListener("click", function() {
+checkButton.addEventListener("click", function () {
     checkButton.textContent = "Calculating...";
     checkButton.disabled = true;
     // Use a small delay to allow UI to update
@@ -319,3 +315,4 @@ checkButton.addEventListener("click", function() {
 
 
 document.getElementById("today").innerHTML = "$t:$ Current date (" + today + ")";
+document.getElementById("article_footer").innerHTML = "Copyright © " + yyyy + " Sebastian Oßner";

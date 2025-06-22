@@ -31,7 +31,7 @@ export default async function loadAndPlotAllWords() {
             plugins: {
                 title: {
                     display: true,
-                    text: 'All AI Text Visible to Humans'
+                    text: 'All English AI Text Visible to Humans'
                 }
             },
             scales: {

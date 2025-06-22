@@ -50,9 +50,11 @@ a {
 }
 
 table {
+    margin: 0 auto; /* center the table */
     width: 100%;
-    overflow-x: auto;
-    display: block;
+    max-width: 800px;
+    border-collapse: collapse;
+    font-family: inherit;
 }
 
 .disclaimer-content {
@@ -137,6 +139,7 @@ textarea {
     font-size: 1rem;
     box-sizing: border-box;
 }
+
 * {
     box-sizing: border-box;
     word-wrap: break-word;
@@ -144,6 +147,12 @@ textarea {
 
 p, td, th {
     word-break: break-word;
+}
+
+td, th {
+    border: 1px solid #ccc;
+    text-align: left;
+    padding: 8px;
 }
 
 #app {
@@ -232,5 +241,9 @@ button:focus-visible {
         height: 2em;
         text-align: center;
         color: #888;
+    }
+
+    td, th {
+        border: 1px solid #213547;
     }
 }

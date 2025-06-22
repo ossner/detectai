@@ -1,26 +1,12 @@
-import CubicSpline from "cubic-spline";
-import {AI, E, G} from "../functions.js"
+import {AI, E, G, P} from "../functions.js";
 
 export default async function loadAndPlotPopulation() {
-    const response = await fetch('/population.csv');
-    const csvText = await response.text();
 
-    const lines = csvText.trim().split('\n').slice(1);
-    const years = [];
-    const populations = [];
-
-    lines.forEach(line => {
-        const [yearStr, popStr] = line.split(',');
-        years.push(parseFloat(yearStr));
-        populations.push(parseFloat(popStr));
-    });
-
-    const P = new CubicSpline(years, populations);
     const totalYears = [];
     const interpolatedPopulations = [];
     for (let year = 1564.311475409836; year <= 2100; year++) {
         totalYears.push(year);
-        interpolatedPopulations.push(P.at(year));
+        interpolatedPopulations.push(P(year));
     }
 
     const ctx = document.getElementById('populationChart').getContext('2d');
@@ -62,7 +48,7 @@ export default async function loadAndPlotPopulation() {
     const recent_years = []
     for (let year = 1564.311475409836; year <= 2100; year++) {
         recent_years.push(year);
-        human_values.push(P.at(year) * E(year) * G(year));
+        human_values.push(P(year) * E(year) * G(year));
         AI_values.push(AI(year));
     }
 

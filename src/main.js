@@ -6,12 +6,14 @@ import loadAndPlotPopulation from "./Plots/population.js";
 import loadAndPlotWords from "./Plots/WordsADay.js";
 import loadAndPlotEnglishSpeakers from "./Plots/EnglishSpeakers.js";
 import loadAndPlotAllWords from "./Plots/AIWords.js"
+import {P_AI} from "./functions.js";
+import {dateToYearFraction} from "./functions.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-    loadAndPlotPopulation();
     loadAndPlotWords();
     loadAndPlotEnglishSpeakers();
     loadAndPlotAllWords();
+    loadAndPlotPopulation();
     const toggle = document.querySelector('.disclaimer-toggle');
     const content = document.querySelector('.disclaimer-content');
 
@@ -28,10 +30,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
 var today = new Date();
 var dd = String(today.getDate()).padStart(2, '0');
-var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+var mm = String(today.getMonth() + 1).padStart(2, '0');
 var yyyy = today.getFullYear();
-
 today = dd + '/' + mm + '/' + yyyy;
+
+var tomorrow = new Date();
+tomorrow.setDate(tomorrow.getDate() + 1); // Add 1 day
+var dd_tom = String(tomorrow.getDate()).padStart(2, '0');
+var mm_tom = String(tomorrow.getMonth() + 1).padStart(2, '0');
+var yyyy_tom = tomorrow.getFullYear();
+tomorrow = dd_tom + '/' + mm_tom + '/' + yyyy_tom;
 
 document.querySelector("#title").innerHTML = `
     <h1>The World's Most Accurate* AI Text Detector</h1>
@@ -40,16 +48,13 @@ document.querySelector("#title").innerHTML = `
 
 document.querySelector("#input").innerHTML = `
     <div class="input-container">
-        <textarea id="text-input" rows="15" cols="100" placeholder="Enter at least 40 words of English text..."></textarea>
-    </div>
-`;
-
-
-document.querySelector("#input").innerHTML = `
-    <div class="input-container">
         <textarea id="text-input" rows="15" cols="100" placeholder="Enter at least 40 words of English text..." style="display: block; margin-bottom: 10px;"></textarea>
         <button id="check-button" style="display: block; margin: 0 auto;" disabled>Check for AI</button>
         <p id="error-message" style="color: red; display: none; text-align: center;"></p>
+        <div id="result-container" style="display: none; margin-top: 20px; text-align: center;">
+        <h3>Probability that this text is AI-generated is: <strong id="base-rate">0.00%</strong></h3>
+        <h4>Tomorrow it will be: <strong id="tomorrow-rate">0.00%</strong></h4>
+    </div>
     </div>
 `;
 
@@ -284,13 +289,33 @@ function enableButton() {
     checkButton.style.opacity = "1"; // Optional: Visual indicator for enabled button
 }
 
-function dateToYearFraction(dateString) {
-    const [day, month, year] = dateString.split('/').map(Number);
-    const isLeapYear = (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
-    const daysInYear = isLeapYear ? 366 : 365;
-    const daysPerMonth = [31, isLeapYear ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    const dayOfYear = day + daysPerMonth.slice(0, month - 1).reduce((sum, days) => sum + days, 0);
-    const yearFraction = dayOfYear / daysInYear;
-    return year + yearFraction;
-}
+console.log(P_AI(dateToYearFraction(today)));
+
+checkButton.addEventListener("click", function() {
+    checkButton.textContent = "Calculating...";
+    checkButton.disabled = true;
+    // Use a small delay to allow UI to update
+    setTimeout(() => {
+        try {
+            // Calculate probability
+            const P = P_AI(dateToYearFraction(today));
+            const baseRatePercent = (P * 100).toFixed(2);
+            const P_tmrw = P_AI(dateToYearFraction(tomorrow));
+            const tmrwRatePercent = (P_tmrw * 100).toFixed(2);
+            // Update result display
+            document.getElementById("base-rate").textContent = `${baseRatePercent}%`;
+            document.getElementById("tomorrow-rate").textContent = `${tmrwRatePercent}%`;
+            document.getElementById("result-container").style.display = "block";
+        } catch (error) {
+            console.error("Error calculating AI probability:", error);
+            showError("An error occurred during calculation. Please try again.");
+        } finally {
+            // Reset button
+            checkButton.textContent = "Check for AI";
+            checkButton.disabled = false;
+        }
+    }, 100);
+});
+
+
 document.getElementById("today").innerHTML = "$t:$ Current date (" + today + ")";

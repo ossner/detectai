@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "cubic-spline": "^3.0.3",
-    "languagedetect": "^2.0.0"
+    "languagedetect": "^2.0.0",
+    "numeric": "^1.2.6"
   }
 }

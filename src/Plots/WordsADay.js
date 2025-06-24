@@ -65,7 +65,7 @@ export default async function loadAndPlotWords() {
                 y: {
                     title: {
                         display: true,
-                        text: '# Words'
+                        text: 'Number of English Words'
                     },
                     ticks: {
                         callback: function (value) {

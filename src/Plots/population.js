@@ -94,7 +94,7 @@ export default async function loadAndPlotPopulation() {
                     min: 1564
                 },
                 y: {
-                    title: {display: true, text: 'Population'},
+                    title: {display: true, text: 'Generated Words'},
                     ticks: {
                         callback: function (value) {
                             return value.toExponential();

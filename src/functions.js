@@ -1,8 +1,22 @@
 import CubicSpline from "cubic-spline";
 
 
-export function AI(t, W_max = 3e12, k_W = 2.1, t_W = 2025.5, E_floor = 0.5, E_start = 0.8, r_E = 0.02, t_R = 2028, r_T = 0.01, T_floor = 0.6) {
-    return (W_max / (1 + Math.exp(-k_W * (t - t_W)))) * Math.max(E_floor, E_start - r_E * (t - 2023)) * Math.max(T_floor, 1 - r_T * Math.max(0, t - t_R));
+export function AI(
+    t,
+    W_max = 3e12,
+    k_W = 0.8,
+    t_W = 2028,
+    E_start = 0.8,
+    r_E = 0.02,
+    E_floor = 0.4,
+    t_R = 2028,
+    r_T = 0.005,
+    T_floor = 0.75
+) {
+    const growth = W_max / (1 + Math.exp(-k_W * (t - t_W)));
+    const efficiency = Math.max(E_floor, E_start - r_E * (t - 2023));
+    const retention = Math.max(T_floor, 1 - r_T * Math.max(0, t - t_R));
+    return growth * efficiency * retention;
 }
 
 export function E(t, E_max = 0.33, k_E = 0.014, t_E = 2016) {

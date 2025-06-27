@@ -71,10 +71,10 @@ document.querySelector("#article").innerHTML = `
       <button class="disclaimer-toggle">Disclaimer</button>
       <div class="disclaimer-content">
       <ul>
+        <li>"AI" and its variations in the context of this article are all forms of generative AI/LLMs in the contemporary, colloquial sense and are used interchangeably.</li>
       <li>This is nothing more than a thought experiment and guesswork with many, many caveats that I have largely omitted, and while I am employed at a company that works primarily with Generative AI,
         I tried to be as objective as possible with my "estimations."</li>
         
-        <li>"AI" and its variations in the context of this article are all forms of generative AI/LLMs in the contemporary, colloquial sense.</li>
         <li>That being said, the views expressed here are solely my own.</li>
 </ul>
         
